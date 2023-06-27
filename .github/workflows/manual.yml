@@ -41,6 +41,6 @@ jobs:
     - name: Check local folder
       run: powershell dir
     - name: validate 2 services
-      working-directory: ./MGNotify/MGNotify/scripts
+      working-directory: ./scripts
       run: powershell -file App-ServiceFunctions.ps1 -ComputerName clvwsrv2016n3 -action verify -services "WinDefend","TimeBrokerSvc"
 
