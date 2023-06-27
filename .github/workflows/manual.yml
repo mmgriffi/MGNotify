@@ -32,3 +32,14 @@ jobs:
       run: echo "Hello ${{ inputs.name }}"
     - name: check remote services
       run: powershell get-service -computername clvwsrv2016n3
+  verify:
+    runs-on: [self-hosted]
+    # The type of runner that the job will run on
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Check local folder
+      run: powershell dir
+    - name: validate 2 services
+      working-directory: ./MGNotify/MGNotify/scripts
+      run: powershell -file App-ServiceFunctions.ps1 -ComputerName clvwsrv2016n3 -action verify -services "WinDefend","TimeBrokerSvc"
+
