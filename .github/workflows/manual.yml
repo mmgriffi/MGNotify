@@ -33,6 +33,7 @@ jobs:
     - name: check remote services
       run: powershell get-service -computername clvwsrv2016n3
   verify:
+    needs : greet 
     runs-on: [self-hosted]
     # The type of runner that the job will run on
     # Steps represent a sequence of tasks that will be executed as part of the job
