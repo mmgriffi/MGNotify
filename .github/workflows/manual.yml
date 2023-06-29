@@ -8,11 +8,11 @@ on:
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
-      name:
+      servername:
         # Friendly description to be shown in the UI instead of 'name'
-        description: 'Person to greet'
+        description: 'Server name'
         # Default value if no value is explicitly provided
-        default: 'World'
+        default: 'hostname'
         # Input has to be provided for the workflow to run
         required: true
         # The data type of the input
@@ -29,9 +29,9 @@ jobs:
     # Runs a single command using the runners shell
     - uses: actions/checkout@v3
     - name: Send greeting
-      run: echo "Hello ${{ inputs.name }}"
+      run: echo "This will run on ${{ inputs.servername }}"
     - name: check remote services
-      run: powershell get-service -computername clvwsrv2016n3
+      run: powershell get-service -computername ${{ inputs.servername }}
   verify:
     needs : greet 
     runs-on: [self-hosted]
@@ -42,5 +42,5 @@ jobs:
       run: powershell dir
     - name: validate 2 services
       working-directory: ./scripts
-      run: powershell -file App-ServiceFunctions.ps1 -ComputerName clvwsrv2016n3 -action verify -services "WinDefend","TimeBrokerSvc"
+      run: powershell -file App-ServiceFunctions.ps1 -ComputerName ${{ inputs.servername }} -action verify -services "WinDefend","TimeBrokerSvc"
 
