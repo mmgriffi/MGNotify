@@ -21,7 +21,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "greet"
-  greet:
+  deployFiles:
     # The type of runner that the job will run on
     runs-on: [self-hosted]
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -32,8 +32,8 @@ jobs:
       run: echo "This will run on ${{ inputs.servername }}"
     - name: check remote services
       run: powershell get-service -computername ${{ inputs.servername }}
-  verify:
-    needs : greet 
+  validate:
+    needs : deployFiles 
     runs-on: [self-hosted]
     # The type of runner that the job will run on
     # Steps represent a sequence of tasks that will be executed as part of the job
